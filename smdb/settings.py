@@ -118,27 +118,27 @@ WSGI_APPLICATION = "smdb.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
-# }
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',  # Utilisez le backend MySQL
-        'NAME': 'eidrc_smdb',  # Nom de la base de données
-        'USER': 'root',            # Nom d'utilisateur MySQL
-        'PASSWORD': '',       # Mot de passe MySQL
-        # 'PASSWORD': 'PgcIE2Dd_zTH6B*P',       # Mot de passe MySQL
-        'HOST': '127.0.0.1',                    # Adresse de l'hôte, 'localhost' ou '127.0.0.1' pour local
-        'PORT': '3306',                         # Port MySQL (par défaut 3306)
-    },
-        'OPTIONS': {
-            'charset': 'utf8mb4',  # Forcer l'utilisation de utf8mb4
-            # 'sql_mode': 'STRICT_TRANS_TABLES',  # Activer le mode strict ECI@12345
-        },
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',  # Utilisez le backend MySQL
+#         'NAME': 'eidrc_smdb',  # Nom de la base de données
+#         'USER': 'root',            # Nom d'utilisateur MySQL
+#         'PASSWORD': '',       # Mot de passe MySQL
+#         # 'PASSWORD': 'PgcIE2Dd_zTH6B*P',       # Mot de passe MySQL
+#         'HOST': '127.0.0.1',                    # Adresse de l'hôte, 'localhost' ou '127.0.0.1' pour local
+#         'PORT': '3306',                         # Port MySQL (par défaut 3306)
+#     },
+#         'OPTIONS': {
+#             'charset': 'utf8mb4',  # Forcer l'utilisation de utf8mb4
+#             # 'sql_mode': 'STRICT_TRANS_TABLES',  # Activer le mode strict ECI@12345
+#         },
+# }
 
 
 # Password validation
