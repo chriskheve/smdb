@@ -140,7 +140,7 @@ def signup(request):
 
     # Valider et sauvegarder le formulaire
     if form.is_valid():
-        user = form.save(commit=False)
+        user = form.save()
         user.is_active = True  # Désactiver l'utilisateur jusqu'à la vérification
         user.save()
 
