@@ -209,7 +209,7 @@ def _norm(s: str) -> str:
     examples=[
         OpenApiExample(
             "Entêtes attendues",
-            value={"headers": ["EI Site ID", "Site Name", "Latitude", "Longitude", "Vendor", "risk_assessment", "zm"]},
+            value={"headers": ["EI Site ID", "Site Name", "Latitude", "Longitude", "Vendor", "risk_assessment", "zm", "security_type"]},
             response_only=True,
         ),
         OpenApiExample(
@@ -283,6 +283,7 @@ def import_sites_excel(request):
 
             latitude = get_col("latitude")
             longitude = get_col("longitude")
+            security_type = get_col("security_type")
 
             # Vendor par NOM
             vendor_obj = None
@@ -319,6 +320,7 @@ def import_sites_excel(request):
                 vendor=vendor_obj,
                 risk_assessment=ra_obj,
                 zm=zm_obj,
+                security_type=str(security_type).strip() if security_type is not None else None
             )
             created += 1
 
@@ -350,6 +352,13 @@ def import_sites_excel(request):
             description="UUID du RiskAssessment",
             required=False,
             type=OpenApiTypes.UUID,
+            location=OpenApiParameter.QUERY,
+        ),
+        OpenApiParameter(
+            name="security_type",
+            description="Filtre texte partiel (insensible à la casse) sur `security_type`",
+            required=False,
+            type=str,
             location=OpenApiParameter.QUERY,
         ),
         OpenApiParameter(
@@ -403,7 +412,7 @@ def get_all_sites(request):
     """
     vendor_id = request.GET.get('vendor')
     risk_assessment = request.GET.get('risk_assessment')
-    # snel_direction_id = request.GET.get('snel_direction')
+    security_type_name = request.GET.get('security_type')
     search_filter = request.GET.get('filter', '').strip()
 
     filters = Q()
@@ -411,6 +420,8 @@ def get_all_sites(request):
         filters &= Q(vendor__id=vendor_id)
     if risk_assessment:
         filters &= Q(risk_assessment__id=risk_assessment)
+    if security_type_name:
+        filters &= Q(security_type=security_type_name)
     if search_filter:
         filters &= (
             Q(name__icontains=search_filter) |

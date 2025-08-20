@@ -10,6 +10,7 @@ from vendor.models import Vendor
 class Sites(models.Model):
   id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
   name = models.CharField(max_length=100, null=True)
+  security_type = models.CharField(max_length=100, null=True)
   site_id = models.CharField(max_length=100, unique=True, null=True)
   latitude = models.CharField(max_length=100, null=True)
   longitude = models.CharField(max_length=100, null=True)

@@ -5,7 +5,7 @@ from . import api
 urlpatterns = [
     path('create/', api.create_vendor, name='create_vendor'),
     # path('<uuid:vendor_id>/', api.get_vendor_by_id, name='get_vendor_by_id'),
-    # path('all/', api.get_all_vendor, name='get_all_vendor'),
+    path('all/', api.get_all_vendor, name='get_all_vendor'),
     # path('pagination/', api.get_vendor_pagination, name='get_vendor_pagination'),
     # path('update/<uuid:vendor_id>/', api.update_vendor, name='update_vendor'),
     # path('all/v2/', api.get_vendors_by_user_department, name='get_vendors_by_user_department'),

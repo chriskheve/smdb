@@ -19,6 +19,7 @@ class SitesSerializer(serializers.ModelSerializer):
             'longitude',
             'zm',
             'vendor',
+            'security_type',
             'risk_assessment',
             'created_at'
         ]

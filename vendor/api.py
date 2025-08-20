@@ -102,3 +102,51 @@ def create_vendor(request):
 
     except Exception as e:
         return JsonResponse({'message': f'Erreur inattendue : {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@extend_schema(
+    tags=["vendors"],
+    summary="Lister tous les vendors",
+    description="Retourne la **liste complète** des vendors (sans pagination).",
+    responses={
+        200: OpenApiResponse(
+            response=VendorSerializer(many=True),
+            description="Liste des vendors"
+        ),
+        500: OpenApiResponse(
+            response=inline_serializer(
+                name="VendorListServerError",
+                fields={
+                    "message": serializers.CharField(),
+                    "error": serializers.CharField()
+                }
+            ),
+            description="Erreur interne"
+        ),
+    },
+    examples=[
+        OpenApiExample(
+            "Réponse 200 (exemple)",
+            value=[
+                {"id": "59a0f6f9-b6ec-4d5c-8a67-9f1e1d1b1c11", "name": "Global-Tech"},
+                {"id": "3b4d0348-0c7c-4f18-9e0b-1b796b7b9d10", "name": "NOVACOM"}
+            ],
+            response_only=True,
+        ),
+        OpenApiExample(
+            "Réponse 500 (exemple)",
+            value={"message": "Internal server error", "error": "Detail de l'exception"},
+            response_only=True,
+        ),
+    ],
+)
+@api_view(['GET'])
+@authentication_classes([])
+@permission_classes([])
+def get_all_vendor(request):
+    try:
+        vendors = Vendor.objects.all()
+        serializer = VendorSerializer(vendors, many=True)
+        return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
+    except Exception as e:
+        return JsonResponse({'message': 'Internal server error', 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
